@@ -1,4 +1,7 @@
 {
+    "files.associations": {
+        "*.wbt": "webots-proto",
+    },
     "python.analysis.extraPaths": [
         "typings",
         "/usr/local/webots",
