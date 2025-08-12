@@ -18,20 +18,19 @@
 
 import os
 
+import launch
 from ament_index_python.packages import get_package_share_directory
+from launch import LaunchDescription
 from launch_ros.actions import Node
 from webots_ros2_driver.urdf_spawner import URDFSpawner, get_webots_driver_node
 from webots_ros2_driver.webots_controller import WebotsController
-
-import launch
-from launch import LaunchDescription
 
 PACKAGE_NAME = 'ec63_webots'
 
 
 def generate_launch_description():
     package_dir = get_package_share_directory(PACKAGE_NAME)
-    robot_description_path = os.path.join(package_dir, 'resource', 'ec63_description.urdf')
+    robot_description_path = os.path.join(package_dir, 'resource', 'ec63.urdf')
     ros2_control_params = os.path.join(package_dir, 'resource', 'ros2_control_config.yaml')
 
     # Define your URDF robots here
@@ -52,8 +51,8 @@ def generate_launch_description():
         parameters=[
             {'robot_description': robot_description_path},
             {'use_sim_time': True},
-            {'set_robot_state_publisher': True},
-            # ros2_control_params
+            # {'set_robot_state_publisher': True},
+            ros2_control_params
         ],
     )
 

@@ -7,6 +7,7 @@ EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/project
 EXTERNPROTO "../protos/Ec63.proto"
 
 WorldInfo {
+  basicTimeStep 20
 }
 Viewpoint {
   orientation -0.35048114005314057 0.26184874842755873 0.8992208868870717 1.9584785680286525

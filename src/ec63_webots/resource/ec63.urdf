@@ -1,6 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <robot name="ec63">
-  <webots>
-    <plugin type="ec63_webots.ec63_controller.Ec63Driver" />
-  </webots>
+
+    <webots>
+        <!-- <plugin type="ec63_webots.ec63_controller.Ec63Driver" /> -->
+        <plugin type="webots_ros2_control::Ros2Control" />
+    </webots>
+
+    <ros2_control name="WebotsControl" type="system">
+        <hardware>
+            <plugin>webots_ros2_control::Ros2ControlSystem</plugin>
+        </hardware>
+        <joint name="joint1">
+            <command_interface name="position">
+            </command_interface>
+            <state_interface name="position" />
+            <state_interface name="velocity" />
+            <state_interface name="effort" />
+            <param name="initial_position">0.0</param>
+            <!-- initial position for the FakeSystem -->
+        </joint>
+        <joint name="joint2">
+            <command_interface name="position">
+            </command_interface>
+            <state_interface name="position" />
+            <state_interface name="velocity" />
+            <state_interface name="effort" />
+            <param name="initial_position">-1.57</param>
+            <!-- initial position for the FakeSystem -->
+        </joint>
+        <joint name="joint3">
+            <command_interface name="position">
+            </command_interface>
+            <state_interface name="position" />
+            <state_interface name="velocity" />
+            <state_interface name="effort" />
+            <param name="initial_position">0.0</param>
+            <!-- initial position for the FakeSystem -->
+        </joint>
+        <joint name="joint4">
+            <command_interface name="position">
+            </command_interface>
+            <state_interface name="position" />
+            <state_interface name="velocity" />
+            <state_interface name="effort" />
+            <param name="initial_position">-1.57</param>
+            <!-- initial position for the FakeSystem -->
+        </joint>
+        <joint name="join5">
+            <command_interface name="position">
+            </command_interface>
+            <state_interface name="position" />
+            <state_interface name="velocity" />
+            <state_interface name="effort" />
+            <param name="initial_position">0.0</param>
+            <!-- initial position for the FakeSystem -->
+        </joint>
+        <joint name="joint6">
+            <command_interface name="position">
+            </command_interface>
+            <state_interface name="position" />
+            <state_interface name="velocity" />
+            <state_interface name="effort" />
+            <param name="initial_position">0.0</param>
+            <!-- initial position for the FakeSystem -->
+        </joint>
+    </ros2_control>
+
 </robot>
