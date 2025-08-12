@@ -1,3 +1,9 @@
 worlds/*.jpg
 worlds/*.wbproj
 *.pyc
+
+build/
+install/
+log/
+
+browse.vc*
