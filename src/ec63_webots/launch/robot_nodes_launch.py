@@ -48,10 +48,11 @@ def generate_launch_description():
     universal_robot_driver = WebotsController(
         robot_name='Ec63',
         namespace='ec63',
+        respawn=True,
         parameters=[
             {'robot_description': robot_description_path},
             {'use_sim_time': True},
-            # {'set_robot_state_publisher': True},
+            {'set_robot_state_publisher': True},
             ros2_control_params
         ],
     )
@@ -64,7 +65,7 @@ def generate_launch_description():
         executable='spawner',
         output='screen',
         prefix=controller_manager_prefix,
-        arguments=['ur_joint_trajectory_controller', '-c', 'ec63/controller_manager'] + controller_manager_timeout,
+        arguments=['ec_joint_trajectory_controller', '-c', 'ec63/controller_manager'] + controller_manager_timeout,
     )
 
     joint_state_broadcaster_spawner = Node(
@@ -72,7 +73,7 @@ def generate_launch_description():
         executable='spawner',
         output='screen',
         prefix=controller_manager_prefix,
-        arguments=['ur_joint_state_broadcaster', '-c', 'ec63/controller_manager'] + controller_manager_timeout,
+        arguments=['ec_joint_state_broadcaster', '-c', 'ec63/controller_manager'] + controller_manager_timeout,
     )
 
     robot_state_publisher = Node(
@@ -85,18 +86,15 @@ def generate_launch_description():
         }],
     )
 
-    # return LaunchDescription([])
-
-
     return LaunchDescription([
         # Request to spawn the URDF robot
         # spawn_URDF_ur5e,
 
         # Other ROS 2 nodes
         universal_robot_driver,
-        # robot_state_publisher,
-        # trajectory_controller_spawner,
-        # joint_state_broadcaster_spawner,
+        robot_state_publisher,
+        trajectory_controller_spawner,
+        joint_state_broadcaster_spawner,
 
         # Launch the driver node once the URDF robot is spawned
         # launch.actions.RegisterEventHandler(
@@ -107,10 +105,10 @@ def generate_launch_description():
         # ),
 
         # Kill all the nodes when the driver node is shut down
-        # launch.actions.RegisterEventHandler(
-        #     event_handler=launch.event_handlers.OnProcessExit(
-        #         target_action=universal_robot_driver,
-        #         on_exit=[launch.actions.EmitEvent(event=launch.events.Shutdown())],
-        #     )
-        # ),
+        launch.actions.RegisterEventHandler(
+            event_handler=launch.event_handlers.OnProcessExit(
+                target_action=universal_robot_driver,
+                on_exit=[launch.actions.EmitEvent(event=launch.events.Shutdown())],
+            )
+        ),
     ])
