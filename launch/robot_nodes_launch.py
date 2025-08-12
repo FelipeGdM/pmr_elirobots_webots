@@ -33,6 +33,11 @@ def generate_launch_description():
     robot_description_path = os.path.join(package_dir, 'resource', 'ec63.urdf')
     ros2_control_params = os.path.join(package_dir, 'resource', 'ros2_control_config.yaml')
 
+    with open(robot_description_path, 'r') as urdf_file:
+        robot_description = ""
+        for line in urdf_file:
+            robot_description += line
+
     # Define your URDF robots here
     # The name of an URDF robot has to match the name of the robot of the driver node
     # You can specify the URDF file to use with "urdf_path"
@@ -52,19 +57,17 @@ def generate_launch_description():
         parameters=[
             {'robot_description': robot_description_path},
             {'use_sim_time': True},
-            {'set_robot_state_publisher': True},
+            {'set_robot_state_publisher': False},
             ros2_control_params
         ],
     )
 
     # Other ROS 2 nodes
     controller_manager_timeout = ['--controller-manager-timeout', '100']
-    controller_manager_prefix = 'python.exe' if os.name == 'nt' else ''
     trajectory_controller_spawner = Node(
         package='controller_manager',
         executable='spawner',
         output='screen',
-        prefix=controller_manager_prefix,
         arguments=['ec_joint_trajectory_controller', '-c', 'ec63/controller_manager'] + controller_manager_timeout,
     )
 
@@ -72,7 +75,6 @@ def generate_launch_description():
         package='controller_manager',
         executable='spawner',
         output='screen',
-        prefix=controller_manager_prefix,
         arguments=['ec_joint_state_broadcaster', '-c', 'ec63/controller_manager'] + controller_manager_timeout,
     )
 
@@ -82,7 +84,7 @@ def generate_launch_description():
         executable='robot_state_publisher',
         output='screen',
         parameters=[{
-            'robot_description': '<robot name=""><link name=""/></robot>'
+            'robot_description': robot_description
         }],
     )
 
@@ -99,16 +101,16 @@ def generate_launch_description():
         # Launch the driver node once the URDF robot is spawned
         # launch.actions.RegisterEventHandler(
         #     event_handler=launch.event_handlers.OnProcessIO(
-        #         target_action=spawn_URDF_ur5e,
+        #         target_action=robot_state_publisher,
         #         on_stdout=lambda event: get_webots_driver_node(event, universal_robot_driver),
         #     )
         # ),
 
         # Kill all the nodes when the driver node is shut down
-        launch.actions.RegisterEventHandler(
-            event_handler=launch.event_handlers.OnProcessExit(
-                target_action=universal_robot_driver,
-                on_exit=[launch.actions.EmitEvent(event=launch.events.Shutdown())],
-            )
-        ),
+        # launch.actions.RegisterEventHandler(
+        #     event_handler=launch.event_handlers.OnProcessExit(
+        #         target_action=universal_robot_driver,
+        #         on_exit=[launch.actions.EmitEvent(event=launch.events.Shutdown())],
+        #     )
+        # ),
     ])
