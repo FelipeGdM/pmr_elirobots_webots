@@ -107,10 +107,10 @@ def generate_launch_description():
         # ),
 
         # Kill all the nodes when the driver node is shut down
-        # launch.actions.RegisterEventHandler(
-        #     event_handler=launch.event_handlers.OnProcessExit(
-        #         target_action=universal_robot_driver,
-        #         on_exit=[launch.actions.EmitEvent(event=launch.events.Shutdown())],
-        #     )
-        # ),
+        launch.actions.RegisterEventHandler(
+            event_handler=launch.event_handlers.OnProcessExit(
+                target_action=universal_robot_driver,
+                on_exit=[launch.actions.EmitEvent(event=launch.events.Shutdown())],
+            )
+        ),
     ])
