@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot name="ec63">
+  <webots>
+    <plugin type="ec63_webots.ec63_controller.Ec63Driver" />
+  </webots>
+</robot>
