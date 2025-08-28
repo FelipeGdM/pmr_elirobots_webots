@@ -6,14 +6,6 @@ To run the simulation, execute the command
 webots worlds/table.wbt
 ```
 
-## Dependencies
-
-To install all dependencies, run the command
-
-```bash
-rosdep install --from-path .
-```
-
 ## ROS 2 integration
 
 To start the simulation with ROS 2 interfaces, execute the following commands
@@ -34,7 +26,7 @@ ros2 topic pub --once /ec63/ec_joint_trajectory_controller/joint_trajectory \
         joint_names: ['joint1', 'joint2', 'joint3', 'joint4', 'joint5', 'joint6'],
         points: [
             {
-                positions: [1.0, -1.0, -1.0, 1.0, 1.0, 0.0], 
+                positions: [1.0, -1.0, -1.0, 1.0, 1.0, 0.0],
                 time_from_start: {sec: 1, nanosec: 0}
             }
         ]
