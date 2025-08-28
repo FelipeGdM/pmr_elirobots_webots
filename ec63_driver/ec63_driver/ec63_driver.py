@@ -1,6 +1,7 @@
 import sys
 import time
 from dataclasses import dataclass
+from math import pi
 from typing import cast
 
 import rclpy
@@ -32,6 +33,9 @@ def build_list(joints_position: dict[str, Command]):
         else:
             retval.append(joints_position[joint])
     return retval
+
+def convert_rad_to_deg(angle: float):
+    return angle * 180 / pi
 
 
 class Ec63Driver(Node):
@@ -90,7 +94,7 @@ class Ec63Driver(Node):
             self.get_logger().info(f"Move to {joint_cmd_list} with speed {speed}")
 
             if not self.dry_run:
-                self.robot.move_joint(joint_cmd_list, speed=speed)
+                self.robot.move_joint([convert_rad_to_deg(angle) for angle in joint_cmd_list], speed=speed)
                 time.sleep(cmd.time_interval)
 
 
