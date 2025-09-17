@@ -25,5 +25,5 @@ RectangleArena {
   }
 }
 Ec63 {
-  controller "<extern>"
+  controller "ec_controller"
 }
