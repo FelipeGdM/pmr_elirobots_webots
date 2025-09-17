@@ -29,7 +29,7 @@ pos_sensor.enable(timestep)
 # Main loop:
 # - perform simulation steps until Webots is stopping the controller
 
-angle_cmd = 0
+angle_cmd = 0.0
 rising = True
 while robot.step(timestep) != -1:
 

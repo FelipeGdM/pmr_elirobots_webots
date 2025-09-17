@@ -28,8 +28,6 @@ joint_list = [cast(Motor, robot.getDevice(f"joint{i}")) for i in range(1, 7)]
 
 
 def receive_callback(raw_msg: list[bytes]):
-    # print("Received command!")
-    # topic = raw_msg[0].decode("utf-8")
     payload = raw_msg[1].decode("utf-8")
 
     msg = JointCommandMsg.from_json(payload)
@@ -54,5 +52,3 @@ while robot.step(timestep) != -1:
     if events:
         recv_msg = socket.recv_multipart()
         receive_callback(recv_msg)
-
-# IOLoop.current().start()
