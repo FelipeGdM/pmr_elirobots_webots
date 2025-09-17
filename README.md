@@ -6,40 +6,30 @@ To run the simulation, execute the command
 webots worlds/table.wbt
 ```
 
-## ROS 2 integration
+## Communication
 
-To start the simulation with ROS 2 interfaces, execute the following commands
+To communicate with the simulation, the `Client` class from `pmr_elirobots_driver` should be used
 
-```bash
-ros2 launch ec63_webots robot_world_launch.py # starts the simulation
-ros2 launch ec63_webots robot_nodes_launch.py # starts the controller
+Usage example:
+
+```python
+from pmr_elirobots_driver.client import Client
+
+robot = Client()
+
+count = 0
+while True:
+    count += 1
+
+    if count % 2:
+        print("Send cmd1")
+        robot.send_command(joint1=180, joint2=0, joint3=0, joint4=0, joint5=0, joint6=0)
+    else:
+        print("Send cmd2")
+        robot.send_command(joint2=-90)
+
+    time.sleep(10)
 ```
-
-Position commands should then be published in the topic `/ec63/ec_joint_trajectory_controller/joint_trajectory`
-
-Example:
-
-```bash
-ros2 topic pub --once /ec63/ec_joint_trajectory_controller/joint_trajectory \
-    trajectory_msgs/msg/JointTrajectory \
-    "{
-        joint_names: ['joint1', 'joint2', 'joint3', 'joint4', 'joint5', 'joint6'],
-        points: [
-            {
-                positions: [1.0, -1.0, -1.0, 1.0, 1.0, 0.0],
-                time_from_start: {sec: 1, nanosec: 0}
-            }
-        ]
-    }"
-```
-
-It's possible to use `rqt_joint_trajectory_controller` to evaluate the movement of the robot with a graphical tool
-
-```bash
-ros2 run rqt_joint_trajectory_controller rqt_joint_trajectory_controller --ros-args --remap /robot_description:=/ec63/robot_description
-```
-
-![rqt_tool](./docs/rqt_tool.png)
 
 ## Copyright notice
 
