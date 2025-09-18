@@ -9,8 +9,6 @@ from typing import cast
 import zmq
 from controller import Motor, Robot
 from pmr_elirobots_msgs.cmd import JointCommandMsg
-from tornado.ioloop import IOLoop
-from zmq.eventloop.zmqstream import ZMQStream
 
 # create the Robot instance.
 robot = Robot()
