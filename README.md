@@ -32,7 +32,7 @@ while True:
         robot.send_command(joint1=180, joint2=0, joint3=0, joint4=0, joint5=0, joint6=0)
     else:
         print("Send cmd2")
-        robot.send_command(joint2=-90) # ommited joints maitain their position
+        robot.send_command(joint2=-90) # ommited joints maintain their position
 
     time.sleep(10)
 ```
