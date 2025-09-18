@@ -14,6 +14,8 @@ ADD . /app
 
 EXPOSE 1234
 
+EXPOSE 5555
+
 CMD [ "/bin/bash", "-c", "webots --stream --batch --stdout --stderr --minimize worlds/table.wbt"  ]
 # CMD [ "/bin/bash", "-c", "screen -dmS Xsession Xvfb :99 -screen 0 1024x768x16 && webots --stream --batch --stdout --stderr --minimize worlds/table.wbt"  ]
 # CMD [ "Xvfb :99 -screen 0 1024x768x16 &", "webots", "--stream", "--batch", "--stdout", "--stderr", "--minimize", "worlds/table.wbt" ]

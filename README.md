@@ -15,7 +15,7 @@ Usage example:
 ```python
 from pmr_elirobots_driver.client import Client
 
-robot = Client()
+robot = Client(ip="localhost", port=5555)
 
 count = 0
 while True:
