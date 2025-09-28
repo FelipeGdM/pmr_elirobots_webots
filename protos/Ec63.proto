@@ -214,6 +214,87 @@ PROTO Ec63 [
                                                   url "meshes/ec63/link6.STL"
                                                 }
                                               }
+                                              # Base da garra
+                                              Solid {
+                                                translation 0.000000 0.0 0.034
+                                                children [
+                                                  Shape {
+                                                    appearance PBRAppearance {
+                                                      baseColor 1.0 0.0 0.0
+                                                      roughness 1.000000
+                                                      metalness 0
+                                                    }
+                                                    geometry Box
+                                                    {
+                                                      size 0.038 0.024 0.068
+                                                    }
+                                                  }
+                                                  # Dedo da garra #1
+                                                  SliderJoint {
+                                                    jointParameters JointParameters{
+                                                      axis -1 0 0
+                                                    }
+                                                    device [
+                                                      LinearMotor {
+                                                        name "linear_motor_1"
+                                                        minPosition 0
+                                                        maxPosition 0.01
+                                                      }
+                                                      PositionSensor{
+                                                        name "linear_motor_1_sensor"
+                                                      }
+                                                    ]
+                                                    endPoint Solid {
+                                                      translation 0.015 0.0 0.042
+                                                      children [
+                                                        Shape {
+                                                          appearance PBRAppearance {
+                                                            baseColor 0.0 0.0 1.0
+                                                            roughness 1.000000
+                                                            metalness 0
+                                                          }
+                                                          geometry Box
+                                                          {
+                                                            size 0.005 0.008 0.016
+                                                          }
+                                                        }
+                                                      ]
+                                                    }
+                                                  }
+                                                  # Dedo da garra #2
+                                                  SliderJoint{
+                                                    jointParameters JointParameters{
+                                                      axis 1 0 0
+                                                    }
+                                                    device [
+                                                      LinearMotor {
+                                                        name "linear_motor_2"
+                                                        minPosition 0
+                                                        maxPosition 0.01
+                                                      }
+                                                      PositionSensor{
+                                                        name "linear_motor_2_sensor"
+                                                      }
+                                                    ]
+                                                    endPoint Solid {
+                                                      translation -0.015 0.0 0.042
+                                                      children [
+                                                        Shape {
+                                                          appearance PBRAppearance {
+                                                            baseColor 0.0 0.0 1.0
+                                                            roughness 1.000000
+                                                            metalness 0
+                                                          }
+                                                          geometry Box
+                                                          {
+                                                            size 0.005 0.008 0.016
+                                                          }
+                                                        }
+                                                      ]
+                                                    }
+                                                  }
+                                                ]
+                                              }
                                             ]
                                             name "link6"
                                             boundingObject USE link6
